@@ -1,27 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
-using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using UnityEngine;
 
-public class AddForce : MonoBehaviour
+public class Rotate : MonoBehaviour
 {
-    private int i = 0;
     private Rigidbody rb;
+    [SerializeField] private float torque;
     [SerializeField] private float force;
-   
+    
     // Start is called before the first frame update
     void Start()
     {
-       rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(force,0,0);
-        }
-       
+        rb.AddTorque(0,torque,0);
+    }
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        rb.AddForce(0,-45,force,ForceMode.Impulse);
     }
 }
